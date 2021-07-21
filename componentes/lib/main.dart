@@ -6,14 +6,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Componentes App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Componentes'),
-        ),
-        body: HomePageTemp(),
-      ),
-    );
+    return MaterialApp(title: 'Componentes App', home: HomePageTemp());
   }
 }
