@@ -8,7 +8,8 @@ class _MenuProvider {
   _MenuProvider() {}
 
   Future<List<dynamic>> cargarDatos() async {
-    final resp = await rootBundle.loadString('data/opciones.json');
+    final resp = await rootBundle.loadString(
+        'data/opciones.json'); // Se debe agregar el recurso en el assets del pubspec.yaml
 
     Map dataMap = json.decode(resp);
     opciones = dataMap['rutas'];

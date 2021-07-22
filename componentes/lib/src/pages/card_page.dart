@@ -13,6 +13,7 @@ class CardPage extends StatelessWidget {
         padding: EdgeInsets.all(10),
         children: <Widget>[
           _cardTipoUno(),
+          _cardTipoDos(),
         ],
       ),
     );
@@ -35,6 +36,25 @@ class CardPage extends StatelessWidget {
               TextButton(onPressed: () {}, child: Text('Ok')),
             ],
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _cardTipoDos() {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          FadeInImage(
+            image: NetworkImage(
+                'https://www.technocrazed.com/wp-content/uploads/2015/12/Landscape-wallpaper-16.jpg'),
+            placeholder: AssetImage(
+                'assets/jar-loading.gif'), // Se debe agregar el recurso en el assets del pubspec.yaml
+            height: 300.0,
+            fit: BoxFit.cover,
+          ),
+          Container(
+              padding: EdgeInsets.all(10), child: Text('Alguna descripcion'))
         ],
       ),
     );
