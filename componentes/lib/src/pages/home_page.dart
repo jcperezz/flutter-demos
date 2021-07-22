@@ -1,3 +1,4 @@
+import 'package:componentes/src/providers/menu_provider.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,12 +15,33 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _lista() {
-    return ListView(
-      children: _listaItems(),
+    return FutureBuilder(
+      future: menuProvider.cargarDatos(),
+      initialData: [],
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+        return ListView(
+          children: _listaItems(snapshot.data),
+        );
+      },
     );
   }
 
-  List<Widget> _listaItems() {
-    return [];
+  List<Widget> _listaItems(List<dynamic>? data) {
+    print(data);
+
+    List<Widget> items = [];
+
+    data!.forEach((element) {
+      items
+        ..add(ListTile(
+          title: Text(element['texto']),
+          leading: Icon(Icons.access_alarm_rounded),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {},
+        ))
+        ..add(Divider());
+    });
+
+    return items;
   }
 }
