@@ -9,6 +9,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _valorSlider = 100.0;
+  bool _blockSlider = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,8 @@ class _SliderPageState extends State<SliderPage> {
         child: Column(
           children: <Widget>[
             _crearSlider(),
+            _crearCheckbox(),
+            _crearSwitch(),
             Expanded(child: _crearImagen()),
           ],
         ),
@@ -36,19 +39,53 @@ class _SliderPageState extends State<SliderPage> {
       value: _valorSlider,
       min: 10,
       max: 400,
-      onChanged: (value) {
-        setState(() {
-          _valorSlider = value;
-        });
-      },
+      onChanged: (_blockSlider)
+          ? null
+          : (value) {
+              setState(() {
+                _valorSlider = value;
+              });
+            },
     );
   }
 
   Widget _crearImagen() {
     return Image(
       image: NetworkImage(
-          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fphotobest1.com%2Fwp-content%2Fuploads%2F2018%2F04%2F1920x1080-jaguar-Wallpaper-hd-06.jpg&f=1&nofb=1'),
+          'https://www.efeverde.com/storage/2018/11/Jaguar-madre-cr%C3%ADa-caricias-476x310.jpg'),
       width: _valorSlider,
+    );
+  }
+
+  Widget _crearCheckbox() {
+    // return Checkbox(
+    //   value: _blockSlider,
+    //   onChanged: (valor) {
+    //     setState(() {
+    //       _blockSlider = valor!;
+    //     });
+    //   },
+    // );
+    return CheckboxListTile(
+      title: Text('Bloquear Slider'),
+      value: _blockSlider,
+      onChanged: (valor) {
+        setState(() {
+          _blockSlider = valor!;
+        });
+      },
+    );
+  }
+
+  Widget _crearSwitch() {
+    return SwitchListTile(
+      title: Text('Bloquear Slider'),
+      value: _blockSlider,
+      onChanged: (valor) {
+        setState(() {
+          _blockSlider = valor;
+        });
+      },
     );
   }
 }
