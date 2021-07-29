@@ -17,11 +17,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          CardSwiper(),
-          MovieSlider(),
-        ],
+      body: SingleChildScrollView(
+        // Evita el problema del overflow
+        child: Column(
+          children: [
+            CardSwiper(),
+            MovieSlider(),
+          ],
+        ),
       ),
     );
   }

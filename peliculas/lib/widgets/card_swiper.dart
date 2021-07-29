@@ -14,8 +14,8 @@ class CardSwiper extends StatelessWidget {
       child: Swiper(
         itemCount: 10,
         layout: SwiperLayout.STACK,
-        itemWidth: _size.width * 0.6,
-        itemHeight: _size.height * 0.4,
+        itemWidth: _size.width * 0.45,
+        itemHeight: _size.height * 0.45,
         itemBuilder: (_, int index) {
           return GestureDetector(
             onTap: () => Navigator.pushNamed(context, 'details',
