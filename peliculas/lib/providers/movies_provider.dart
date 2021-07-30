@@ -7,6 +7,8 @@ class MoviesProvider extends ChangeNotifier {
   String _language = 'es-ES';
   String _baseUrl = 'api.themoviedb.org';
 
+  List<Movie> onDisplayMovies = [];
+
   MoviesProvider() {
     print('MoviesProvider');
     this.getOnDisplayMovies();
@@ -23,8 +25,8 @@ class MoviesProvider extends ChangeNotifier {
 
       var uriResponse = await client.get(uri);
       final nowPlayingResponse = NowPlayingResponse.fromJson(uriResponse.body);
-
-      print(nowPlayingResponse.results[0].title);
+      onDisplayMovies = nowPlayingResponse.results;
+      notifyListeners(); // Notifica si hay cambios en la data
     } finally {
       client.close();
     }
