@@ -8,10 +8,12 @@ class MoviesProvider extends ChangeNotifier {
   String _baseUrl = 'api.themoviedb.org';
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider() {
     print('MoviesProvider');
     this.getOnDisplayMovies();
+    this.getPopularMovies();
   }
 
   getOnDisplayMovies() async {
@@ -26,6 +28,24 @@ class MoviesProvider extends ChangeNotifier {
       var uriResponse = await client.get(uri);
       final nowPlayingResponse = NowPlayingResponse.fromJson(uriResponse.body);
       onDisplayMovies = nowPlayingResponse.results;
+      notifyListeners(); // Notifica si hay cambios en la data
+    } finally {
+      client.close();
+    }
+  }
+
+  getPopularMovies() async {
+    var client = http.Client();
+    try {
+      var uri = Uri.https(_baseUrl, '/3/movie/popular', {
+        'api_key': _apiKey,
+        'language': _language,
+        'page': '1',
+      });
+
+      var uriResponse = await client.get(uri);
+      final popularResponse = PopularResponse.fromJson(uriResponse.body);
+      popularMovies = [...popularMovies, ...popularResponse.results];
       notifyListeners(); // Notifica si hay cambios en la data
     } finally {
       client.close();
