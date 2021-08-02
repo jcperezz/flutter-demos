@@ -9,6 +9,7 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
+  int _popularPage = 0;
 
   MoviesProvider() {
     print('MoviesProvider');
@@ -16,39 +17,35 @@ class MoviesProvider extends ChangeNotifier {
     this.getPopularMovies();
   }
 
-  getOnDisplayMovies() async {
+  Future<String> _getJsonData(String endPoint, [int page = 1]) async {
     var client = http.Client();
     try {
-      var uri = Uri.https(_baseUrl, '/3/movie/now_playing', {
+      var uri = Uri.https(_baseUrl, endPoint, {
         'api_key': _apiKey,
         'language': _language,
-        'page': '1',
+        'page': '$page',
       });
 
       var uriResponse = await client.get(uri);
-      final nowPlayingResponse = NowPlayingResponse.fromJson(uriResponse.body);
-      onDisplayMovies = nowPlayingResponse.results;
-      notifyListeners(); // Notifica si hay cambios en la data
+      return uriResponse.body;
     } finally {
       client.close();
     }
   }
 
-  getPopularMovies() async {
-    var client = http.Client();
-    try {
-      var uri = Uri.https(_baseUrl, '/3/movie/popular', {
-        'api_key': _apiKey,
-        'language': _language,
-        'page': '1',
-      });
+  getOnDisplayMovies() async {
+    String body = await this._getJsonData('/3/movie/now_playing');
+    final nowPlayingResponse = NowPlayingResponse.fromJson(body);
+    onDisplayMovies = nowPlayingResponse.results;
+    notifyListeners(); // Notifica si hay cambios en la data
+  }
 
-      var uriResponse = await client.get(uri);
-      final popularResponse = PopularResponse.fromJson(uriResponse.body);
-      popularMovies = [...popularMovies, ...popularResponse.results];
-      notifyListeners(); // Notifica si hay cambios en la data
-    } finally {
-      client.close();
-    }
+  getPopularMovies() async {
+    _popularPage++;
+    final String body =
+        await this._getJsonData('/3/movie/popular', _popularPage);
+    final popularResponse = PopularResponse.fromJson(body);
+    popularMovies = [...popularMovies, ...popularResponse.results];
+    notifyListeners(); // Notifica si hay cambios en la data
   }
 }
