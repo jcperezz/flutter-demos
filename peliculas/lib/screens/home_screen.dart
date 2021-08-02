@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
     final moviesProvider = Provider.of<MoviesProvider>(context);
 
     print(moviesProvider.onDisplayMovies);
+    print(moviesProvider.popularMovies);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,8 +28,13 @@ class HomeScreen extends StatelessWidget {
         // Evita el problema del overflow
         child: Column(
           children: [
-            CardSwiper(movies: moviesProvider.onDisplayMovies),
-            MovieSlider(),
+            CardSwiper(
+              movies: moviesProvider.onDisplayMovies,
+            ),
+            MovieSlider(
+              movies: moviesProvider.popularMovies,
+              title: 'Populares',
+            ),
           ],
         ),
       ),
