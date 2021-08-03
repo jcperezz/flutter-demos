@@ -16,6 +16,7 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  String? heroId;
 
   Movie({
     required this.adult,
@@ -32,6 +33,7 @@ class Movie {
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    this.heroId,
   });
 
   get fullPosterImg => this.posterPath != null
