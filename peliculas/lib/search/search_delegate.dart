@@ -6,13 +6,22 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    return [Text('build')];
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () => query = '',
+      ),
+    ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    throw UnimplementedError();
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
   }
 
   @override
@@ -23,7 +32,18 @@ class MovieSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    throw UnimplementedError();
+    if (query.isEmpty) {
+      return Container(
+        child: Center(
+          child: Icon(
+            Icons.movie_creation_outlined,
+            color: Colors.black38,
+            size: 130,
+          ),
+        ),
+      );
+    }
+
+    return Container();
   }
 }
