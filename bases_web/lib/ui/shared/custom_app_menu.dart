@@ -12,7 +12,7 @@ class CustomAppMenu extends StatelessWidget {
       child: Row(
         children: [
           MyCustomButton(
-            onPress: () {},
+            onPress: () => Navigator.pushNamed(context, '/stateful'),
             title: 'Contador Stateful',
             textColor: Colors.black,
           ),
@@ -20,7 +20,7 @@ class CustomAppMenu extends StatelessWidget {
             width: 10,
           ),
           MyCustomButton(
-            onPress: () {},
+            onPress: () => Navigator.pushNamed(context, '/provider'),
             title: 'Contador Provider',
             textColor: Colors.black,
           ),
