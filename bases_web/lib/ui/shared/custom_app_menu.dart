@@ -28,7 +28,7 @@ class CustomAppMenu extends StatelessWidget {
             width: 10,
           ),
           MyCustomButton(
-            onPress: () {},
+            onPress: () => Navigator.pushNamed(context, '/otra'),
             title: 'Otra Pagina',
             textColor: Colors.black,
           ),
